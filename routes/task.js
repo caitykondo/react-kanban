@@ -30,7 +30,24 @@ router.route('/')
 
 router.route('/:id')
   .get((req, res) => {
-    Card.
+    Card.findAll({
+      where : {
+        id : req.params.id
+      }
+    })
+    .then((card) => {
+      res.send(card);
+    })
+  })
+  .delete((req, res) => {
+    Card.findOne({
+      where : {
+        id : req.params.id
+      }
+    })
+    .then((photo) => {
+      photo.destroy({ force : true });
+    })
   })
 
 
