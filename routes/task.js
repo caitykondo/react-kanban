@@ -26,6 +26,12 @@ router.route('/')
       createdBy : req.body.createdBy,
       assignedTo : req.body.assignedTo
     })
+  });
+
+router.route('/:id')
+  .get((req, res) => {
+    Card.
   })
+
 
 module.exports = router;
