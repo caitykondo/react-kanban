@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import KanbanColumn from '../../containers/KanbanColumn';
+import CardForm from '../../containers/CardForm';
+
 
 class KanbanBoard extends Component {
   constructor(props) {
@@ -40,7 +42,7 @@ class KanbanBoard extends Component {
             )
           })
         }
-
+        <CardForm/>
       </div>
     );
   }
