@@ -5,6 +5,7 @@ import KanbanColumn from '../../containers/KanbanColumn';
 class KanbanBoard extends Component {
   constructor(props) {
     super(props);
+    this.statusList = ['on hold', 'in progress', 'done']
     this.state = {
       cards: []
     }
@@ -13,7 +14,6 @@ class KanbanBoard extends Component {
   componentWillMount() {
     let ps = this;
     function cardsReqListener() {
-      console.log(this.responseText);
       ps.setState({
         cards: JSON.parse(this.responseText)
       })
@@ -29,18 +29,18 @@ class KanbanBoard extends Component {
   render() {
     return (
       <div className="kanban-board">
-        <KanbanColumn
-          status="on hold"
-          cards={ this.state.cards }
-        />
-        <KanbanColumn
-          status="in progress"
-          cards={ this.state.cards }
-        />
-        <KanbanColumn
-          status="done"
-          cards={ this.state.cards }
-        />
+        {
+          this.statusList.map( status => {
+            return(
+              <KanbanColumn
+                key={ Math.random() }
+                status={ status }
+                cards={ this.state.cards }
+              />
+            )
+          })
+        }
+
       </div>
     );
   }
