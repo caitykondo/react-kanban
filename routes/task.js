@@ -25,6 +25,8 @@ router.route('/')
       status : req.body.status,
       createdBy : req.body.createdBy,
       assignedTo : req.body.assignedTo
+    }).then(() => {
+      res.end();
     })
   });
 

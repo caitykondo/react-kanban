@@ -13,6 +13,17 @@ class KanbanBoard extends Component {
     }
   }
 
+  addCard = (event) => {
+    event.preventDefault();
+    let card = JSON.parse(event.target.dataset.card);
+    let cards = this.state.cards;
+    cards.push(card);
+    this.setState(
+      {cards: cards}
+    )
+  }
+
+
   componentWillMount() {
     let ps = this;
     function cardsReqListener() {
@@ -42,7 +53,9 @@ class KanbanBoard extends Component {
             )
           })
         }
-        <CardForm/>
+        <CardForm
+          addCard={ this.addCard }
+        />
       </div>
     );
   }
