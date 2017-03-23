@@ -2,7 +2,6 @@ import React from 'react';
 
 const Card = ( {task, priority, status, createdBy, assignedTo} ) => (
   <div>
-    a card
     <h2>{ task }</h2>
     <p>{ priority }</p>
     <ul className="task-details">

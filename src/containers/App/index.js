@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import KanbanColumn from '../../containers/KanbanColumn';
+import KanbanBoard from '../../containers/KanbanBoard';
 
 class App extends Component {
   render() {
     return (
-      <KanbanColumn />
+      <KanbanBoard />
     );
   }
 }
