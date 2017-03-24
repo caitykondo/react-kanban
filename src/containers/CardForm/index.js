@@ -19,20 +19,20 @@ class CardForm extends Component {
     let key = event.target.id;
     obj[key] = event.target.value;
     this.setState(obj)
-    // console.log(this.state);
+    console.log(this.state);
   }
 
   render() {
     return(
-      <form action="http://localhost:9000/task" method="POST">
+      <form action="http://localhost:9000/task" method="POST" onChange={this.handleChange}>
         <label name="task">
           Task
-          <input name="task" id="task" type="text" onChange={this.handleChange} />
+          <input name="task" id="task" type="text" />
         </label>
 
         <label name="task">
           Priority
-          <select id="priority" name="priority" onChange={this.handleChange}>
+          <select id="priority" name="priority">
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
@@ -41,7 +41,7 @@ class CardForm extends Component {
 
         <label name="status">
           Status
-          <select id="status" name="status" onChange={this.handleChange}>
+          <select id="status" name="status">
             <option value="on hold">On Hold</option>
             <option value="in progress">In Progress</option>
             <option value="done">Done</option>
@@ -50,12 +50,16 @@ class CardForm extends Component {
 
         <label name="assignedTo">
           Assigned To
-          <select id="assignedTo" name="assignedTo" onChange={this.handleChange}>
+          <select id="assignedTo" name="assignedTo">
             <option value="caitypizza">caitypizza</option>
           </select>
         </label>
 
-        <input type="submit" data-card={ JSON.stringify(this.state) } onClick={ this.props.addCard } value="Add Task"/>
+        <input
+          type="submit"
+          data-card={ JSON.stringify(this.state) }
+          onClick={ this.props.addCard }
+          value="Add Task"/>
       </form>
     );
   }

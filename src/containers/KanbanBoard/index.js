@@ -2,44 +2,32 @@ import React, { Component } from 'react';
 
 import KanbanColumn from '../../containers/KanbanColumn';
 import CardForm from '../../containers/CardForm';
+import { connect } from 'react-redux';
+import {  addCard } from './../../actions';
 
 
 class KanbanBoard extends Component {
   constructor(props) {
+    console.log('constructor', props);
     super(props);
     this.statusList = ['on hold', 'in progress', 'done']
-    this.state = {
-      cards: []
-    }
   }
 
-  addCard = (event) => {
-    event.preventDefault();
-    let card = JSON.parse(event.target.dataset.card);
-    let cards = this.state.cards;
-    cards.push(card);
-    this.setState(
-      {cards: cards}
-    )
-  }
+  // addCard = (event) => {
+  //   event.preventDefault();
 
+  //   let card = JSON.parse(event.target.dataset.card);
+  //   console.log(card);
+  //   let cards = this.state.cards;
+  //   cards.push(card);
+  //   this.setState(
+  //     {cards: cards}
+  //   )
+  // }
 
-  componentWillMount() {
-    let ps = this;
-    function cardsReqListener() {
-      ps.setState({
-        cards: JSON.parse(this.responseText)
-      })
-    }
-    let endpoint = 'http://localhost:9000/task';
-    let cardsReq = new XMLHttpRequest();
-    cardsReq.addEventListener("load", cardsReqListener);
-    cardsReq.open("GET", endpoint);
-    cardsReq.send();
-
-  }
 
   render() {
+    console.log('board',this.props);
     return (
       <div className="kanban-board">
         {
@@ -48,17 +36,35 @@ class KanbanBoard extends Component {
               <KanbanColumn
                 key={ Math.random() }
                 status={ status }
-                cards={ this.state.cards }
+                cards={ this.props.cards }
               />
             )
           })
         }
         <CardForm
-          addCard={ this.addCard }
+          // addCard={ this.addCard }
         />
       </div>
     );
   }
 }
 
-export default KanbanBoard;
+// export default KanbanBoard;
+const mapStateToProps = (state) => {
+    return {
+      cards: state.cards
+    }
+  };
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onAddCard: (task, priority, status, createdBy, assignedTo) => {
+//       dispatch(addCard(task, priority, status, createdBy, assignedTo));
+//     }
+//   }
+// };
+
+export default connect(
+  mapStateToProps,
+  // mapDispatchToProps
+)(KanbanBoard);
