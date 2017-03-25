@@ -8,7 +8,6 @@ import {  addCard } from './../../actions';
 
 class KanbanBoard extends Component {
   constructor(props) {
-    console.log('constructor', props);
     super(props);
     this.statusList = ['on hold', 'in progress', 'done']
   }
@@ -27,7 +26,6 @@ class KanbanBoard extends Component {
 
 
   render() {
-    console.log('board',this.props);
     return (
       <div className="kanban-board">
         {
@@ -49,22 +47,21 @@ class KanbanBoard extends Component {
   }
 }
 
-// export default KanbanBoard;
 const mapStateToProps = (state) => {
     return {
       cards: state.cards
     }
   };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onAddCard: (task, priority, status, createdBy, assignedTo) => {
-//       dispatch(addCard(task, priority, status, createdBy, assignedTo));
-//     }
-//   }
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddCard: (task, priority, status, createdBy, assignedTo) => {
+      dispatch(addCard(task, priority, status, createdBy, assignedTo));
+    }
+  }
+};
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
+  mapDispatchToProps
 )(KanbanBoard);

@@ -2,15 +2,8 @@ import React, { Component } from 'react';
 import Card from '../../components/Card'
 
 class KanbanColumn extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     cards: []
-  //   }
-  // }
 
   render() {
-    console.log(this.props);
     return (
       <div className="kanban-column">
         <h1>{this.props.status}</h1>

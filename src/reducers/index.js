@@ -8,7 +8,7 @@ function cards(state = initialState, action) {
   switch( action.type ){
     case ADD_CARD:
     return Object.assign({}, state, {
-      books: [
+      cards: [
         ...state.cards,
         {
           title: action.task,

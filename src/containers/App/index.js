@@ -5,12 +5,14 @@ import {  addCard } from './../../actions';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   componentWillMount() {
     let ps = this;
     function cardsReqListener() {
       JSON.parse(this.responseText).map( card => {
-          console.log('add cards');
         return ps.props.onAddCard(
           card.task,
           card.priority,
@@ -30,7 +32,6 @@ class App extends Component {
   render() {
     return (
       <KanbanBoard
-        // props={this.props}
       />
     );
   }
