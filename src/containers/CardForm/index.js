@@ -35,25 +35,14 @@ class CardForm extends Component {
       event.target.assignedTo.value,
       event.target.createdBy.value,
     );
-    // api call
-    // let ps = this;
-
-    // let endpoint = 'http://localhost:9000/task';
-    // let xmlHttp = new XMLHttpRequest();
-    // xmlHttp.open("POST", endpoint, true);
-    // xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-    // xmlHttp.send(JSON.parse(this.state));
   }
 
   sendData = (event) =>{
     let endpoint = 'http://localhost:9000/task';
-
-    // let req = encodeURIComponent(JSON.stringify(this.state));
-
-    let obj = this.state;
     let q = ''
-    for(name in obj){
-       q +=  encodeURIComponent(name)+"="+encodeURIComponent(obj[name])+"&";
+
+    for (name in this.state){
+       q +=  encodeURIComponent(name) + "=" + encodeURIComponent(this.state[name]) + "&";
     }
 
     let xmlHttp = new XMLHttpRequest();
@@ -63,9 +52,8 @@ class CardForm extends Component {
   }
 
   render() {
-    // console.log(this.state)
     return(
-      <form onSubmit={this.addCard} onChange={this.handleChange}>
+      <form onSubmit={this.addCard, this.sendData} onChange={this.handleChange}>
         <label name="task">
           Task
           <input name="task" id="task" type="text" />

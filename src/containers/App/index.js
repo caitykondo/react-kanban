@@ -47,7 +47,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddCard: (task, priority, status, assignedTo, createdBy) => {
-      dispatch(addCard(task, priority, status, assignedTo));
+      dispatch(addCard(task, priority, status, assignedTo, createdBy));
     }
   }
 };
