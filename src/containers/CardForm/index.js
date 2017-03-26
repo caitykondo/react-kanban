@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import {  addCard } from './../../actions';
+
 class CardForm extends Component {
 
   constructor(props) {
@@ -18,13 +21,22 @@ class CardForm extends Component {
     let obj = {};
     let key = event.target.id;
     obj[key] = event.target.value;
-    this.setState(obj)
-    console.log(this.state);
+    console.log(obj);
   }
 
+  addCard = (event) => {
+    event.preventDefault();
+    this.props.onAddCard(
+      event.target.task.value,
+      event.target.priority.value,
+      event.target.status.value,
+      event.target.assignedTo.value,
+      )
+    // post to api
+  }
   render() {
     return(
-      <form action="http://localhost:9000/task" method="POST" onChange={this.handleChange}>
+      <form action="http://localhost:9000/task" method="POST" onSubmit={this.addCard} onChange={this.handleChange}>
         <label name="task">
           Task
           <input name="task" id="task" type="text" />
@@ -48,6 +60,13 @@ class CardForm extends Component {
           </select>
         </label>
 
+        <label name="createdBy">
+          Created By
+          <select id="createdBy" name="createdBy">
+            <option value="caitypizza">caitypizza</option>
+          </select>
+        </label>
+
         <label name="assignedTo">
           Assigned To
           <select id="assignedTo" name="assignedTo">
@@ -57,12 +76,29 @@ class CardForm extends Component {
 
         <input
           type="submit"
-          data-card={ JSON.stringify(this.state) }
-          onClick={ this.props.addCard }
           value="Add Task"/>
       </form>
     );
   }
 }
 
-export default CardForm;
+// export default CardForm;
+
+const mapStateToProps = (state) => {
+    return {
+      cards: state.cards
+    }
+  };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddCard: (task, priority, status, createdBy, assignedTo) => {
+      dispatch(addCard(task, priority, status, createdBy, assignedTo));
+    }
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CardForm);
