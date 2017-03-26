@@ -13,8 +13,6 @@ class App extends Component {
     let ps = this;
     function cardsReqListener() {
       JSON.parse(this.responseText).map( card => {
-        console.log('task', card.task);
-        console.log('createdBy', card.createdBy);
 
         return ps.props.onAddCard(
           card.task,

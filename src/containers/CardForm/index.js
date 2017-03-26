@@ -7,20 +7,28 @@ class CardForm extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      task:'',
+      priority: '',
+      status: '',
+      assignedTo: '',
+      createdBy: ''
+    }
   }
 
   handleChange = (event) => {
-    let obj = {};
-    let key = event.target.id;
-    obj[key] = event.target.value;
-    console.log(obj);
+    this.setState(
+      {
+        [event.target.id]: event.target.value
+      }
+    )
   }
 
   addCard = (event) => {
     event.preventDefault();
-    console.log(event.target.task.value),
 
     this.props.onAddCard(
+
       event.target.task.value,
       event.target.priority.value,
       event.target.status.value,
@@ -28,21 +36,36 @@ class CardForm extends Component {
       event.target.createdBy.value,
     );
     // api call
-    let ps = this;
+    // let ps = this;
 
+    // let endpoint = 'http://localhost:9000/task';
+    // let xmlHttp = new XMLHttpRequest();
+    // xmlHttp.open("POST", endpoint, true);
+    // xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    // xmlHttp.send(JSON.parse(this.state));
+  }
+
+  sendData = (event) =>{
     let endpoint = 'http://localhost:9000/task';
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
-    // cardsReq.addEventListener("load", cardsReqListener);
+    // let req = encodeURIComponent(JSON.stringify(this.state));
+
+    let obj = this.state;
+    let q = ''
+    for(name in obj){
+       q +=  encodeURIComponent(name)+"="+encodeURIComponent(obj[name])+"&";
+    }
+
+    let xmlHttp = new XMLHttpRequest();
     xmlHttp.open("POST", endpoint);
-    xmlHttp.send();
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlHttp.send(q);
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.state)
     return(
-      <form onSubmit={this.addCard}>
+      <form onSubmit={this.addCard} onChange={this.handleChange}>
         <label name="task">
           Task
           <input name="task" id="task" type="text" />
@@ -51,6 +74,7 @@ class CardForm extends Component {
         <label name="priority">
           Priority
           <select id="priority" name="priority">
+            <option disabled selected hidden value></option>
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
@@ -60,6 +84,7 @@ class CardForm extends Component {
         <label name="status">
           Status
           <select id="status" name="status">
+            <option disabled selected hidden value></option>
             <option value="on hold">On Hold</option>
             <option value="in progress">In Progress</option>
             <option value="done">Done</option>
@@ -69,6 +94,7 @@ class CardForm extends Component {
         <label name="createdBy">
           Created By
           <select id="createdBy" name="createdBy">
+            <option disabled selected hidden value></option>
             <option value="caitypizza">caitypizza</option>
           </select>
         </label>
@@ -76,13 +102,16 @@ class CardForm extends Component {
         <label name="assignedTo">
           Assigned To
           <select id="assignedTo" name="assignedTo">
+            <option disabled selected hidden value></option>
             <option value="caitypizza">caitypizza</option>
           </select>
         </label>
 
         <input
           type="submit"
-          value="Add Task"/>
+          value="Add Task"
+          onClick={this.sendData}
+        />
       </form>
     );
   }
