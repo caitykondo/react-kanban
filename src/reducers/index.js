@@ -11,11 +11,11 @@ function cards(state = initialState, action) {
       cards: [
         ...state.cards,
         {
-          title: action.task,
+          task: action.task,
           priority: action.priority,
           status: action.status,
-          createdBy: action.createdBy,
           assignedTo: action.assignedTo,
+          createdBy: action.createdBy
         }
       ]
     })

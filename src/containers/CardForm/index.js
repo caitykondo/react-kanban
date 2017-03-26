@@ -7,14 +7,6 @@ class CardForm extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      task: '',
-      priority: 'low',
-      status: 'on hold',
-      createdBy: '',
-      assignedTo: ''
-    }
   }
 
   handleChange = (event) => {
@@ -26,23 +18,37 @@ class CardForm extends Component {
 
   addCard = (event) => {
     event.preventDefault();
+    console.log(event.target.task.value),
+
     this.props.onAddCard(
       event.target.task.value,
       event.target.priority.value,
       event.target.status.value,
       event.target.assignedTo.value,
-      )
-    // post to api
+      event.target.createdBy.value,
+    );
+    // api call
+    let ps = this;
+
+    let endpoint = 'http://localhost:9000/task';
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+    // cardsReq.addEventListener("load", cardsReqListener);
+    xmlHttp.open("POST", endpoint);
+    xmlHttp.send();
   }
+
   render() {
+    console.log(this.props);
     return(
-      <form action="http://localhost:9000/task" method="POST" onSubmit={this.addCard} onChange={this.handleChange}>
+      <form onSubmit={this.addCard}>
         <label name="task">
           Task
           <input name="task" id="task" type="text" />
         </label>
 
-        <label name="task">
+        <label name="priority">
           Priority
           <select id="priority" name="priority">
             <option value="low">Low</option>
@@ -82,8 +88,6 @@ class CardForm extends Component {
   }
 }
 
-// export default CardForm;
-
 const mapStateToProps = (state) => {
     return {
       cards: state.cards
@@ -92,8 +96,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (task, priority, status, createdBy, assignedTo) => {
-      dispatch(addCard(task, priority, status, createdBy, assignedTo));
+    onAddCard: (task, priority, status, assignedTo, createdBy) => {
+      dispatch(addCard(task, priority, status, assignedTo, createdBy));
     }
   }
 };

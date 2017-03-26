@@ -13,12 +13,15 @@ class App extends Component {
     let ps = this;
     function cardsReqListener() {
       JSON.parse(this.responseText).map( card => {
+        console.log('task', card.task);
+        console.log('createdBy', card.createdBy);
+
         return ps.props.onAddCard(
           card.task,
           card.priority,
           card.status,
-          card.createdBy,
-          card.assignedTo
+          card.assignedTo,
+          card.createdBy
         );
       })
     }
@@ -45,8 +48,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (task, priority, status, createdBy, assignedTo) => {
-      dispatch(addCard(task, priority, status, createdBy, assignedTo));
+    onAddCard: (task, priority, status, assignedTo, createdBy) => {
+      dispatch(addCard(task, priority, status, assignedTo));
     }
   }
 };

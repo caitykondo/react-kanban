@@ -18,8 +18,8 @@ class KanbanColumn extends Component {
                   task={ card.task }
                   priority={ card.priority }
                   status={ card.status }
-                  createdBy={ card.createdBy }
                   assignedTo={ card.assignedTo }
+                  createdBy={ card.createdBy }
                 />
               );
             })

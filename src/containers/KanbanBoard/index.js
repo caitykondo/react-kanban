@@ -12,19 +12,6 @@ class KanbanBoard extends Component {
     this.statusList = ['on hold', 'in progress', 'done']
   }
 
-  // addCard = (event) => {
-  //   event.preventDefault();
-
-  //   let card = JSON.parse(event.target.dataset.card);
-  //   console.log(card);
-  //   let cards = this.state.cards;
-  //   cards.push(card);
-  //   this.setState(
-  //     {cards: cards}
-  //   )
-  // }
-
-
   render() {
     return (
       <div className="kanban-board">
@@ -40,7 +27,6 @@ class KanbanBoard extends Component {
           })
         }
         <CardForm
-          // addCard={ this.addCard }
         />
       </div>
     );
@@ -55,8 +41,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (task, priority, status, createdBy, assignedTo) => {
-      dispatch(addCard(task, priority, status, createdBy, assignedTo));
+    onAddCard: (task, priority, status, assignedTo, createdBy) => {
+      dispatch(addCard(task, priority, status, assignedTo, createdBy));
     }
   }
 };

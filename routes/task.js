@@ -23,9 +23,10 @@ router.route('/')
       task : req.body.task,
       priority : req.body.priority,
       status : req.body.status,
-      createdBy : req.body.createdBy,
-      assignedTo : req.body.assignedTo
+      assignedTo : req.body.assignedTo,
+      createdBy : req.body.createdBy
     }).then(() => {
+      console.log(req);
       res.end();
     })
   });
