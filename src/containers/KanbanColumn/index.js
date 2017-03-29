@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import Card from '../../components/Card'
+import { connect } from 'react-redux';
+import {  addCard, deleteCard } from './../../actions';
 
 class KanbanColumn extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
+  deleteCard = (event) => {
+    this.props.deleteCard(event.target.id);
+    console.log(event.target.id);
+  }
 
   render() {
     return (
@@ -15,11 +26,13 @@ class KanbanColumn extends Component {
               return(
                 <Card
                   key={ card.id }
+                  id={ card.id }
                   task={ card.task }
                   priority={ card.priority }
                   status={ card.status }
                   assignedTo={ card.assignedTo }
                   createdBy={ card.createdBy }
+                  deleteCard={this.deleteCard}
                 />
               );
             })
@@ -30,4 +43,27 @@ class KanbanColumn extends Component {
   }
 }
 
-export default KanbanColumn;
+// export default KanbanColumn;
+
+
+const mapStateToProps = (state) => {
+    return {
+      cards: state.cards
+    }
+  };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddCard: (id, task, priority, status, assignedTo, createdBy) => {
+      dispatch(addCard(id, task, priority, status, assignedTo, createdBy));
+    },
+    deleteCard: (id) => {
+      dispatch(deleteCard(id));
+    }
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(KanbanColumn);

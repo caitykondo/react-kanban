@@ -28,7 +28,6 @@ class CardForm extends Component {
     event.preventDefault();
 
     this.props.onAddCard(
-
       event.target.task.value,
       event.target.priority.value,
       event.target.status.value,
@@ -113,8 +112,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (task, priority, status, assignedTo, createdBy) => {
-      dispatch(addCard(task, priority, status, assignedTo, createdBy));
+    onAddCard: (id, task, priority, status, assignedTo, createdBy) => {
+      dispatch(addCard(id, task, priority, status, assignedTo, createdBy));
     }
   }
 };

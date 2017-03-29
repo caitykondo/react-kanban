@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import KanbanBoard from '../../containers/KanbanBoard';
 import { connect } from 'react-redux';
-import {  addCard } from './../../actions';
+import {  addCard, deleteCard } from './../../actions';
 
 
 class App extends Component {
@@ -15,6 +15,7 @@ class App extends Component {
       JSON.parse(this.responseText).map( card => {
 
         return ps.props.onAddCard(
+          card.id,
           card.task,
           card.priority,
           card.status,
@@ -31,6 +32,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <KanbanBoard
       />
@@ -46,8 +48,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (task, priority, status, assignedTo, createdBy) => {
-      dispatch(addCard(task, priority, status, assignedTo, createdBy));
+    onAddCard: (id, task, priority, status, assignedTo, createdBy) => {
+      dispatch(addCard(id, task, priority, status, assignedTo, createdBy));
+    },
+    deleteCard: (id) => {
+      dispatch(deleteCard(id));
     }
   }
 };

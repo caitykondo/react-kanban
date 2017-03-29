@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import KanbanColumn from '../../containers/KanbanColumn';
 import CardForm from '../../containers/CardForm';
 import { connect } from 'react-redux';
-import {  addCard } from './../../actions';
+import {  addCard, deleteCard } from './../../actions';
 
 
 class KanbanBoard extends Component {
@@ -41,8 +41,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (task, priority, status, assignedTo, createdBy) => {
-      dispatch(addCard(task, priority, status, assignedTo, createdBy));
+    onAddCard: (id, task, priority, status, assignedTo, createdBy) => {
+      dispatch(addCard(id, task, priority, status, assignedTo, createdBy));
     }
   }
 };

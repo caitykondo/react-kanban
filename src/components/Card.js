@@ -1,7 +1,8 @@
 import React from 'react';
 
-const Card = ( { task, priority, status, assignedTo, createdBy } ) => (
+const Card = ( { id, task, priority, status, assignedTo, createdBy, deleteCard } ) => (
   <div>
+    <small>{ id }</small>
     <h2>{ task }</h2>
     <p>{ priority }</p>
     <ul className="task-details">
@@ -9,6 +10,7 @@ const Card = ( { task, priority, status, assignedTo, createdBy } ) => (
       <li>{ assignedTo }</li>
       <li>{ createdBy }</li>
     </ul>
+    <button id={id} onClick={deleteCard}>Delete</button>
   </div>
 );
 
