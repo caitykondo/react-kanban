@@ -1,4 +1,4 @@
-import { ADD_CARD, DELETE_CARD } from '../actions';
+import { ADD_CARD, DELETE_CARD, MOVE_CARD } from '../actions';
 
 const initialState = {
   cards: []
@@ -21,12 +21,16 @@ function cards(state = initialState, action) {
       ]
     })
 
+    case MOVE_CARD:
+    return Object.assign({}, state, {
+      cards:[]
+    })
+
     case DELETE_CARD:
-    console.log('action', typeof action.id);
     return Object.assign({}, state, {
       cards:
         state.cards.filter( cards => {
-          return cards.id != action.id;
+          return cards.id !== parseInt(action.id);
         })
 
     })
