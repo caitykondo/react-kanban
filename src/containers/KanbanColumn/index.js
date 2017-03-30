@@ -9,8 +9,51 @@ class KanbanColumn extends Component {
 
   }
 
-  moveCard = (event) => {
-    this.props.moveCard(event.target.id, event.target.dataset.status, event.target.dataset.direction);
+  sendData = (event) =>{
+    let endpoint = 'http://localhost:9000/task';
+    let q = ''
+
+    for (name in this.state){
+       q +=  encodeURIComponent(name) + "=" + encodeURIComponent(this.state[name]) + "&";
+    }
+
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", endpoint);
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlHttp.send(q);
+  }
+
+  moveCard = ({ target: {
+        id,
+        dataset
+      }
+    }) => {
+      let targetStatus = '';
+      console.log("DATA",dataset.status);
+      switch(dataset.status){
+        case 'on hold':
+          if(dataset.direction === 'right'){
+            targetStatus = 'in progress';
+          }
+          break;
+
+        case 'in progress':
+          if(dataset.direction === 'right'){
+            targetStatus = 'done';
+          }else if(dataset.direction === 'left'){
+            targetStatus = 'on hold';
+          }
+          break;
+
+        case 'done':
+          if(dataset.direction === 'left'){
+            targetStatus = 'in progress';
+          }
+          break;
+      }
+
+      this.props.moveCard(id, dataset.status, targetStatus);
+
   }
 
   deleteCard = (event) => {

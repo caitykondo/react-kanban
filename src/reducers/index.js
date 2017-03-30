@@ -27,29 +27,7 @@ function cards(state = initialState, action) {
       state.cards.map( card => {
         // find card to move
         if (card.id === parseInt(action.id)){
-          switch(card.status){
-
-            case 'on hold':
-              if(action.direction === 'right'){
-                card.status = 'in progress';
-              }
-              break;
-
-            case 'in progress':
-              if(action.direction === 'right'){
-                card.status = 'done';
-              }else if(action.direction === 'left'){
-                card.status = 'on hold';
-              }
-              break;
-
-            case 'done':
-              if(action.direction === 'left'){
-                card.status = 'in progress';
-              }
-              break;
-
-          }
+          card.status = action.target;
           return card;
         }else{
           return card;

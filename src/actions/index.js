@@ -15,12 +15,12 @@ export function addCard(id, task, priority, status, assignedTo, createdBy) {
   };
 }
 
-export function moveCard(id, status, direction) {
+export function moveCard(id, status, target) {
   return {
     type: MOVE_CARD,
     id,
     status,
-    direction
+    target
   };
 }
 
