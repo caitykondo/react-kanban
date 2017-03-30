@@ -47,8 +47,22 @@ router.route('/:id')
         id : req.params.id
       }
     })
-    .then((photo) => {
-      photo.destroy({ force : true });
+    .then((card) => {
+      card.destroy({ force : true });
+    })
+  })
+  .put((req, res) => {
+    Card.findOne({
+      where : {
+        id : req.params.id
+      }
+    })
+    .then((card) => {
+      card.update({
+        status: req.body.status
+      });
+        // set new properties
+
     })
   })
 
