@@ -28,8 +28,9 @@ class KanbanColumn extends Component {
         dataset
       }
     }) => {
+
       let targetStatus = '';
-      console.log("DATA",dataset.status);
+
       switch(dataset.status){
         case 'on hold':
           if(dataset.direction === 'right'){
@@ -54,6 +55,13 @@ class KanbanColumn extends Component {
 
       this.props.moveCard(id, dataset.status, targetStatus);
 
+      let endpoint = `http://localhost:9000/task/${id}`;
+      let q = encodeURIComponent('status') + "=" + encodeURIComponent(targetStatus) + "&";
+
+      let xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("PUT", endpoint);
+      xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xmlHttp.send(q);
   }
 
   deleteCard = (event) => {
