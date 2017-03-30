@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
 import Card from '../../components/Card'
 import { connect } from 'react-redux';
-import {  addCard, deleteCard } from './../../actions';
+import {  addCard, deleteCard, moveCard } from './../../actions';
 
 class KanbanColumn extends Component {
   constructor(props) {
     super(props);
 
+  }
+
+  moveCard = (event) => {
+    this.props.moveCard(event.target.id, event.target.dataset.status, event.target.dataset.direction);
+    // switch(event.target.dataset.status){
+    //   case 'in progress':
+    //     if(event.target.dataset.direction === "right"){
+
+    //       // move to done
+
+    //     }else if(event.target.dataset.direction === "left"){
+    //       // move to on hold
+    //     }
+    //     break;
+
+    //   case 'done':
+    //     console.log('done!!');
+    //     break;
+    // }
+    // console.log('moving', event.target);
   }
 
   deleteCard = (event) => {
@@ -33,6 +53,7 @@ class KanbanColumn extends Component {
                   assignedTo={ card.assignedTo }
                   createdBy={ card.createdBy }
                   deleteCard={this.deleteCard}
+                  moveCard={this.moveCard}
                 />
               );
             })
@@ -42,9 +63,6 @@ class KanbanColumn extends Component {
     )
   }
 }
-
-// export default KanbanColumn;
-
 
 const mapStateToProps = (state) => {
     return {
@@ -57,8 +75,13 @@ const mapDispatchToProps = (dispatch) => {
     onAddCard: (id, task, priority, status, assignedTo, createdBy) => {
       dispatch(addCard(id, task, priority, status, assignedTo, createdBy));
     },
+
     deleteCard: (id) => {
       dispatch(deleteCard(id));
+    },
+
+    moveCard: (id, status, direction) => {
+      dispatch(moveCard(id, status, direction));
     }
   }
 };
