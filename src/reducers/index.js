@@ -25,7 +25,6 @@ function cards(state = initialState, action) {
     return Object.assign({}, state, {
       cards:
       state.cards.map( card => {
-        // find card to move
         if (card.id === parseInt(action.id)){
           card.status = action.target;
           return card;
@@ -41,7 +40,6 @@ function cards(state = initialState, action) {
         state.cards.filter( cards => {
           return cards.id !== parseInt(action.id);
         })
-
     })
 
     default:

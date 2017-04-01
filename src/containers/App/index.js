@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import KanbanBoard from '../../containers/KanbanBoard';
 import { connect } from 'react-redux';
+
+import Navigation from '../../components/Navigation';
+import KanbanBoard from '../../containers/KanbanBoard';
 import {  addCard, deleteCard } from './../../actions';
+import './index.css';
+
 
 
 class App extends Component {
@@ -34,8 +38,11 @@ class App extends Component {
   render() {
     console.log(this.props);
     return (
-      <KanbanBoard
-      />
+      <div>
+        <Navigation />
+        <KanbanBoard />
+      </div>
+
     );
   }
 }

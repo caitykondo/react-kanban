@@ -37,6 +37,8 @@ class CardForm extends Component {
   }
 
   sendData = (event) =>{
+    event.preventDefault();
+
     let endpoint = 'http://localhost:9000/task';
     let q = ''
 
