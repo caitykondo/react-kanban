@@ -1,8 +1,7 @@
 import React from 'react';
 
 const Card = ( { id, task, priority, status, assignedTo, createdBy, deleteCard, moveCard } ) => (
-  <div>
-    <small>{ id }</small>
+  <div className="card">
     <h2>{ task }</h2>
     <p>{ priority }</p>
     <ul className="task-details">

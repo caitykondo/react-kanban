@@ -5,6 +5,9 @@ const Navigation = () => {
     <div className="navigation">
       <ul>
         <li>
+          <h1>kan.ban</h1>
+        </li>
+        <li>
           <a href="#">+ New Card</a>
         </li>
       </ul>
